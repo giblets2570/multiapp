@@ -6,7 +6,7 @@ before_install:
   - docker build -t giblets257/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true giblets257/react-test yarn test
+  - docker run -e CI=true giblets257/react-test yarn test --passWithNoTests
 
 after_success:
   - docker build -t giblets257/multi-client ./client
