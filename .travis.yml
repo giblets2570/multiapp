@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t giblets257/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true giblets257/react-test yarn test
+
+after_success:
+  - docker build -t giblets257/multi-client ./client
+  - docker build -t giblets257/multi-server ./server
+  - docker build -t giblets257/multi-worker ./worker
+  - docker build -t giblets257/multi-nginx ./nginx
+  # Log into docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # push images to docker hub
+  - docker push giblets257/multi-client
+  - docker push giblets257/multi-server
+  - docker push giblets257/multi-worker
+  - docker push giblets257/multi-nginx
