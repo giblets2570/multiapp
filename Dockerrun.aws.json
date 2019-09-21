@@ -3,23 +3,27 @@
   "containerDefinitions":[
     {
       "name": "client",
+      "memory": 128,
       "image": "giblets257/multi-client",
       "hostname": "client",
       "essential": false
     },
     {
       "name": "nginx",
+      "memory": 128,
       "image": "giblets257/multi-nginx",
       "essential": true
     },
     {
       "name": "server",
+      "memory": 128,
       "image": "giblets257/multi-server",
       "hostname": "api",
       "essential": false
     },
     {
       "name": "worker",
+      "memory": 128,
       "image": "giblets257/multi-worker",
       "hostname": "worker",
       "essential": false,
